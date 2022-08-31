@@ -1,6 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lacasadeltonero/home/cart/cart_tab_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../util/ui_status.dart';
+import 'cart_item.dart';
 
 class CartTabWidget extends StatefulWidget {
   const CartTabWidget({Key? key}) : super(key: key);
@@ -10,25 +13,29 @@ class CartTabWidget extends StatefulWidget {
 }
 
 class CartTabWidgetState extends State<CartTabWidget> {
-  final List<CartItem> cartItems = <CartItem>[
-    CartItem(
-        "Price: USD155.70",
-        "Gubia 3/4 V",
-        "These tools are made from the best steel on the market, CPM 10V® (A-11) a powder metal manufactured by Crucible Materials Corporation with a 9.75% vanadium content to hold the edge longer which has a proven history in wood turning. ",
-        "https://cdn.shopify.com/s/files/1/0595/0533/products/12V_1024x1024.jpg?v=1606147643"),
-    CartItem(
-        "Price: USD91.40 ",
-        "Thompson-U-Shaped Bowl Gouge 1/2",
-        "Then is hardened to 60-62 Rockwell, triple cryogenic tempered treatment between the first and second temper",
-        "https://cdn.shopify.com/s/files/1/0595/0533/products/a4fdadfc104d4d7b468013e2659972d5_1024x1024.png?v=1495579606")
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: cartItems.length,
-        itemBuilder: (BuildContext context, int index) {
-          return CartListWidget(cartItem: cartItems[index]);
+    CartTabController controller = CartTabController();
+    return FutureBuilder(
+        future: controller.getUiStatus(),
+        builder: (content, snapshoot) {
+          if (snapshoot.hasData) {
+            switch (snapshoot.data.runtimeType) {
+              case UiLoading:
+                return const CircularProgressIndicator();
+              case UiListing<CartItem>:
+                UiListing uiListing = snapshoot.data as UiListing<CartItem>;
+                return ListView.builder(
+                    itemCount: uiListing.list.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CartListWidget(cartItem: uiListing.list[index]);
+                    });
+              default:
+                return const Text("unkonw error");
+            }
+          } else {
+            return const CircularProgressIndicator();
+          }
         });
   }
 }
@@ -46,7 +53,8 @@ class CartListWidget extends StatelessWidget {
           children: [
             Padding(
                 padding: const EdgeInsets.only(right: 10.0),
-                child: Image.network(width: 200, height: 200, cartItem.image)),
+                child:
+                    Image.network(width: 200, height: 200, cartItem.urlImage)),
             Flexible(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,13 +103,4 @@ class CartListWidget extends StatelessWidget {
               'phone': "5491159964199"
             }));
   }
-}
-
-class CartItem {
-  final String price;
-  final String title;
-  final String description;
-  final String image;
-
-  CartItem(this.price, this.title, this.description, this.image);
 }

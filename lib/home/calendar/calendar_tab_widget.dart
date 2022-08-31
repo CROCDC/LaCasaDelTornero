@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lacasadeltonero/home/calendar/calendar_tab_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import 'event_time.dart';
 
 class CalendarTabWidget extends StatefulWidget {
   const CalendarTabWidget({Key? key}) : super(key: key);
@@ -10,38 +13,30 @@ class CalendarTabWidget extends StatefulWidget {
 }
 
 class CalendarTabWidgetState extends State<CalendarTabWidget> {
-  DateTime _focusedDay = DateTime.now();
-  final ValueNotifier<List<EventItem>> showEvents = ValueNotifier([]);
-  List<EventItem> events = <EventItem>[
-    EventItem("Clase semanal 4 a 7PM", DateTime(2022, 8, 31)),
-    EventItem("Encuentro de torneros", DateTime(2022, 11, 19)),
-    EventItem("Encuentro de torneros", DateTime(2022, 11, 20))
-  ];
-
+  CalendarTabController controller = CalendarTabController();
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       TableCalendar(
         eventLoader: (day) {
-          return _getEventsForDay(day);
+          return controller.filterEvent(day);
         },
         firstDay: DateTime.utc(2010, 10, 16),
         lastDay: DateTime.utc(2030, 3, 14),
-        focusedDay: _focusedDay,
+        focusedDay: controller.focusedDay,
         selectedDayPredicate: (day) {
-          return isSameDay(_focusedDay, day);
+          return true;
         },
         onDaySelected: (selectedDay, focusedDay) {
           setState(() {
-            _focusedDay = selectedDay;
-            showEvents.value = _getEventsForDay(selectedDay);
+            controller.setFocusedDay(selectedDay);
           });
         },
       ),
       Expanded(
         child: ValueListenableBuilder<List<EventItem>>(
-          valueListenable: showEvents,
+          valueListenable: controller.eventsOfDay,
           builder: (context, value, _) {
             return ListView.builder(
               itemCount: value.length,
@@ -66,27 +61,5 @@ class CalendarTabWidgetState extends State<CalendarTabWidget> {
         ),
       )
     ]);
-  }
-
-  List<EventItem> _getEventsForDay(DateTime day) {
-    List<EventItem> eventsForDay = <EventItem>[];
-    for (var element in events) {
-      if (isSameDay(element.day, day)) {
-        eventsForDay.add(element);
-      }
-    }
-    return eventsForDay;
-  }
-}
-
-class EventItem {
-  final String description;
-  final DateTime day;
-
-  EventItem(this.description, this.day);
-
-  @override
-  String toString() {
-    return description;
   }
 }

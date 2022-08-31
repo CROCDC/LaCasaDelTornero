@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "815319249318",
+    "project_id": "la-casa-del-tornero",
+    "storage_bucket": "la-casa-del-tornero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815319249318:android:aa2af4de36197a6eea9f67",
+        "android_client_info": {
+          "package_name": "cr.o.cdc.lacasadeltonero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815319249318-3k825mtmamafqiobsfdj9g4bvs5nvcam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI-JZ0HFZcUGqdYoWNtuG5S9EHOk9BA18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815319249318-3k825mtmamafqiobsfdj9g4bvs5nvcam.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "815319249318-0ljku8ehi7li10feuv520lj7laubs58d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cr.o.cdc.lacasadeltonero"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
