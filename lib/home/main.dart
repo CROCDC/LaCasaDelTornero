@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lacasadeltonero/home/MediaWidget.dart';
+import 'package:lacasadeltonero/home/MediaTab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,12 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  static const List<Widget> _widgetOptions = <StatefulWidget>[
-    MediaWidget()
-  ];
+  static const List<Widget> _widgetOptions = <StatefulWidget>[MediaTabWidget()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -46,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("La Casa Del Tornero"),
+        title: const Text("La Casa Del Tornero"),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
