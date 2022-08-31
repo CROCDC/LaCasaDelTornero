@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lacasadeltonero/home/CalendarTabWidget.dart';
 import 'package:lacasadeltonero/home/MediaTab.dart';
+
+import 'CartTabWidget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +32,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <StatefulWidget>[MediaTabWidget()];
+  static const List<Widget> _widgetOptions = <StatefulWidget>[
+    MediaTabWidget(),
+    CartTabWidget(),
+    CalendarTabWidget()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -50,15 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.photo),
-            label: 'Media',
+            label: 'Contenido',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            label: 'Stock',
+            label: 'Compras',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Clases',
+            icon: Icon(Icons.calendar_month),
+            label: 'Calendario',
           ),
         ],
         currentIndex: _selectedIndex,

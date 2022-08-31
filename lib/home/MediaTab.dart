@@ -12,8 +12,6 @@ class MediaTabWidget extends StatefulWidget {
 class MediaTabWidgetState extends State<MediaTabWidget> {
   final List<Media> images = <Media>[
     MediaVideo(
-        "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"),
-    MediaVideo(
         "https://firebasestorage.googleapis.com/v0/b/silver-octo-carnival.appspot.com/o/Jugando%20un%20ratito%20en%20La%20casa%20del%20tornero.mp4?alt=media&token=3afd6dc1-61a2-493f-8560-f7e831ac0258"),
     MediaVideo(
         "https://firebasestorage.googleapis.com/v0/b/silver-octo-carnival.appspot.com/o/Una%20tarde%20preparando%20material%20en%20La%20casa%20del%20tornero.mp4?alt=media&token=8df268b8-7d14-4fd9-aae3-cf87790bbca5"),
@@ -33,10 +31,10 @@ class MediaTabWidgetState extends State<MediaTabWidget> {
   }
 }
 
-class MediaItem extends StatelessWidget {
+class MediaListWidget extends StatelessWidget {
   final Media media;
 
-  const MediaItem({Key? key, required this.media}) : super(key: key);
+  const MediaListWidget({Key? key, required this.media}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -126,19 +124,11 @@ class _MediaVideoItemState extends State<MediaVideoItem> {
                     child: CircularProgressIndicator()),
           );
         });
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Chewie(
-        controller: chewieController,
-      ),
-    );
   }
 
   @override
   void dispose() {
     super.dispose();
-    // IMPORTANT to dispose of all the used resources
-    // widget.videoPlayerController.dispose();
     chewieController.dispose();
   }
 }
