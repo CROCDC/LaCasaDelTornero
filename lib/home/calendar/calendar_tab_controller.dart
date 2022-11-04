@@ -1,32 +1,52 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:lacasadeltonero/home/calendar/firebase_calendar_service.dart';
 
-import 'event_time.dart';
+import '../../util/ui_status.dart';
+import 'calendar_item.dart';
 
 class CalendarTabController {
   DateTime focusedDay = DateTime.now();
 
-  final ValueNotifier<List<EventItem>> eventsOfDay = ValueNotifier([]);
+  final ValueNotifier<List<CalendarItem>> eventsOfDay = ValueNotifier([]);
 
   FirebaseCalendarService service = FirebaseCalendarService();
 
-  Future<List<EventItem>> events = FirebaseCalendarService().fetchCalendar();
-
-  void setFocusedDay(DateTime selectedDay) async {
+  void setFocusedDay(DateTime selectedDay, List<CalendarItem> events) async {
     focusedDay = selectedDay;
-    eventsOfDay.value = filterEvent(selectedDay);
+    eventsOfDay.value = filterEvent(selectedDay, events);
   }
 
-  List<EventItem> filterEvent(DateTime selectedDay) {
-    List<EventItem> eventsOfDay = <EventItem>[];
-    events.then((value) => {
-          for (var element in value)
-            {
-              if (element.time.day == selectedDay.day &&
-                  element.time.month == selectedDay.month)
-                {eventsOfDay.add(element)}
-            }
-        });
+  List<CalendarItem> filterEvent(
+      DateTime selectedDay, List<CalendarItem> events) {
+    List<CalendarItem> eventsOfDay = <CalendarItem>[];
+    for (var element in events) {
+      switch (element.runtimeType) {
+        case EventCalendarItem:
+          EventCalendarItem item = element as EventCalendarItem;
+          if (DateUtils.isSameDay(selectedDay, item.time)) {
+            eventsOfDay.add(item);
+          }
+          break;
+
+        case WeeklyCalendarItem:
+          WeeklyCalendarItem item = element as WeeklyCalendarItem;
+          if (selectedDay.weekday == item.day) {
+            eventsOfDay.add(item);
+          }
+          break;
+      }
+    }
     return eventsOfDay;
+  }
+
+  Future<UiStatus> getUiStatus() async {
+    Future<UiStatus> future = Future.value(UiLoading());
+    try {
+      future = Future.value(UiListing(await service.fetchCalendar()));
+    } catch (e) {
+      future = Future.value(UiError());
+    }
+    return future;
   }
 }
