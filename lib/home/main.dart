@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lacasadeltonero/home/calendar/calendar_tab_widget.dart';
 import 'package:lacasadeltonero/home/media/media_tab.dart';
@@ -18,6 +20,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localeResolutionCallback: (locale, supportedLocales) {
+        return locale;
+      },
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('es', ''),
+      ],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.brown,
@@ -52,24 +67,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("La Casa Del Tornero"),
+        title: Text(AppLocalizations.of(context)!.appName),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.photo),
-            label: 'Contenido',
+            icon: const Icon(Icons.photo),
+            label: AppLocalizations.of(context)!.mediaTab,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Compras',
+            icon: const Icon(Icons.shopping_cart),
+            label: AppLocalizations.of(context)!.cartTab,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Calendario',
+            icon: const Icon(Icons.calendar_month),
+            label: AppLocalizations.of(context)!.calendarTab,
           ),
         ],
         currentIndex: _selectedIndex,

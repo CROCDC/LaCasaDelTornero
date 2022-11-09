@@ -47,49 +47,54 @@ class CartListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return Card(
+        margin: const EdgeInsets.all(10.0),
+        elevation: 20,
+        child: Column(
           children: [
-            Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child:
-                    Image.network(width: 200, height: 200, cartItem.urlImage)),
-            Flexible(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+            Row(
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(cartItem.title)),
-                Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Text(cartItem.description)),
-                Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(cartItem.price))
-              ],
-            ))
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ElevatedButton(
-            onPressed: goToWhatsapp,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.whatsapp),
-                Padding(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text("Consultar!"))
+                    padding: const EdgeInsets.all(10),
+                    child: Image.network(
+                        width: 200, height: 200, cartItem.urlImage)),
+                Flexible(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 10, right: 10),
+                        child: Text(
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            cartItem.title)),
+                    Padding(
+                        padding: const EdgeInsets.only(right: 10, top: 5),
+                        child: Text(cartItem.description)),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text(cartItem.price))
+                  ],
+                ))
               ],
             ),
-          ),
-        )
-      ],
-    );
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                onPressed: goToWhatsapp,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.whatsapp),
+                    Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Text("Consultar!"))
+                  ],
+                ),
+              ),
+            )
+          ],
+        ));
   }
 
   Future<void> goToWhatsapp() async {

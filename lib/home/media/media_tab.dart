@@ -64,8 +64,13 @@ class MediaImage extends MediaWidget {
 
   @override
   Widget getWidget() {
-    return Padding(
-        padding: const EdgeInsets.all(10.0), child: Image.network(url));
+    return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        margin: const EdgeInsets.all(10),
+        elevation: 20,
+        child: Image.network(url));
   }
 }
 
@@ -120,8 +125,9 @@ class _MediaVideoItemState extends State<MediaVideoItem> {
         builder: (context, snapshot) {
           return Center(
             child: videoPlayerController.value.isInitialized
-                ? Padding(
-                    padding: const EdgeInsets.all(10.0),
+                ? Card(
+                    elevation: 20,
+                    margin: const EdgeInsets.all(10.0),
                     child: AspectRatio(
                       aspectRatio: videoPlayerController.value.aspectRatio,
                       child: Chewie(
