@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.17.0
   flutter_launcher_icons: "^0.7.3"
   firebase_crashlytics: ^3.0.5
+  firebase_analytics: ^10.0.5
 
 flutter_icons:
   android: "ic_launcher"
