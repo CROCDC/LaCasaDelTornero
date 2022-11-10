@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lacasadeltonero/home/calendar/calendar_tab_widget.dart';
 import 'package:lacasadeltonero/home/media/media_tab.dart';
 
-import 'cart/cart_tab_widget.dart';
+import 'home/cart/cart_tab_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
