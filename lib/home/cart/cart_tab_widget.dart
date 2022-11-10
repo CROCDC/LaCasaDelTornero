@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lacasadeltonero/home/cart/cart_tab_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,6 +49,9 @@ class CartListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         margin: const EdgeInsets.all(10.0),
         elevation: 20,
         child: Column(
@@ -73,7 +77,8 @@ class CartListWidget extends StatelessWidget {
                         child: Text(cartItem.description)),
                     Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(cartItem.price))
+                        child: Text(AppLocalizations.of(context)!
+                            .price(cartItem.price)))
                   ],
                 ))
               ],
@@ -84,11 +89,11 @@ class CartListWidget extends StatelessWidget {
                 onPressed: goToWhatsapp,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.whatsapp),
+                  children: [
+                    const Icon(Icons.whatsapp),
                     Padding(
-                        padding: EdgeInsets.only(left: 5),
-                        child: Text("Consultar!"))
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(AppLocalizations.of(context)!.consult))
                   ],
                 ),
               ),

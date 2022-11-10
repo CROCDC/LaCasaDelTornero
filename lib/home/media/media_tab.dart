@@ -65,12 +65,14 @@ class MediaImage extends MediaWidget {
   @override
   Widget getWidget() {
     return Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         margin: const EdgeInsets.all(10),
         elevation: 20,
-        child: Image.network(url));
+        child: Image.network(url, fit: BoxFit.fill));
   }
 }
 
@@ -126,6 +128,11 @@ class _MediaVideoItemState extends State<MediaVideoItem> {
           return Center(
             child: videoPlayerController.value.isInitialized
                 ? Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
                     elevation: 20,
                     margin: const EdgeInsets.all(10.0),
                     child: AspectRatio(

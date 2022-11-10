@@ -2,5 +2,7 @@
     "appName" : "La Casa Del Tornero",
     "mediaTab": "Media",
     "cartTab": "Carrito",
-    "calendarTab" : "Calendario"
+    "calendarTab" : "Calendario",
+    "price": "Price: {price}",
+    "consult" : "Consultar"
 }
